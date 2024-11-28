@@ -26,6 +26,15 @@ add_executable(${PROJECT_NAME}
 # properties
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
 
+# boost
+#
+SET(Boost_USE_STATIC_LIBS ON)
+find_package(Boost REQUIRED COMPONENTS program_options filesystem regex)
+if(Boost_FOUND)
+    target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
+    target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
+endif()
+
 #--------------------------------------------------------------------------------------------------
 # deb pkg
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
